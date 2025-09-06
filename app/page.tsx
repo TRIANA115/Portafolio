@@ -168,6 +168,31 @@ export default function DeveloperPortfolio() {
               {/* DevOps Card */}
               <DevOpsCard />
             </div>
+            
+            {/* Botones de descarga */}
+            <div className="flex justify-end mt-6 gap-4">
+              <a 
+                href="/CERTIFICADOS HALLTEC Y FACTUS ANDRES TRIANA.pdf" 
+                download
+                className="bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-orange-500/50 transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Descargar Certificado Factus
+              </a>
+              
+              <a 
+                href="/Hoja de Vida Narrador de Esports Gamer Negro y Azul.pdf" 
+                download
+                className="bg-gradient-to-r from-cyan-600 to-cyan-400 hover:from-cyan-500 hover:to-cyan-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Descargar Hoja de Vida
+              </a>
+            </div>
           </div>
         </div>
       </div>
