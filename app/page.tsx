@@ -5,8 +5,8 @@ import { OrbitControls, Text, Environment } from "@react-three/drei"
 import { useRef } from "react"
 import { useFrame } from "@react-three/fiber"
 import * as THREE from "three"
-import { Server, Monitor, Database, Container, Terminal, Cpu, Layers } from "lucide-react"
-import { SistemasOperativosCard, KernelLinuxCard, TerminalShellCard, BackendCard, FrontendCard, DatabaseCard, DevOpsCard } from "../components/TechCards"
+import { BackendCard, FrontendCard, DatabaseCard, DevOpsCard } from "../components/TechCards"
+import ProfileCard from "../components/ProfileCard"
 
 function AnimatedSphere({ position }: { position: [number, number, number] }) {
   const meshRef = useRef<any>()
@@ -43,7 +43,7 @@ function BinaryParticles() {
           key={i}
           position={[(Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20]}
           fontSize={0.3}
-          color="#00ff41"
+          color={i % 2 === 0 ? "#0ea5e9" : "#7c3aed"}
           anchorX="center"
           anchorY="middle"
         >
@@ -76,7 +76,7 @@ function MatrixLines() {
 
         return (
           <line key={i} geometry={geometry}>
-            <lineBasicMaterial color="#00ffff" transparent opacity={0.3} />
+            <lineBasicMaterial color={i % 2 === 0 ? "#0ea5e9" : "#7c3aed"} transparent opacity={0.4} />
           </line>
         )
       })}
@@ -105,7 +105,7 @@ function TechCubes() {
           scale={0.5}
         >
           <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color={i % 2 === 0 ? "#00ff41" : "#ff0080"} transparent opacity={0.6} wireframe />
+          <meshStandardMaterial color={i % 2 === 0 ? "#0ea5e9" : "#7c3aed"} transparent opacity={0.7} wireframe />
         </mesh>
       ))}
     </group>
@@ -119,58 +119,36 @@ function HackerBackground3D() {
       style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0 }}
     >
       <Environment preset="night" />
-      <ambientLight intensity={0.2} />
-      <pointLight position={[10, 10, 10]} color="#00ff41" intensity={0.5} />
-      <pointLight position={[-10, -10, -10]} color="#ff0080" intensity={0.3} />
+      <ambientLight intensity={0.3} />
+      <pointLight position={[10, 10, 10]} color="#0ea5e9" intensity={0.7} />
+      <pointLight position={[-10, -10, -10]} color="#7c3aed" intensity={0.5} />
 
       <BinaryParticles />
       <MatrixLines />
       <TechCubes />
 
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
+      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.3} />
     </Canvas>
   )
 }
 
 export default function DeveloperPortfolio() {
   return (
-    <div className="min-h-screen bg-black text-white p-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-950 text-white p-8 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 z-0"></div>
       <HackerBackground3D />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="flex gap-8 items-start">
-          {/* Photo Card - Left Side */}
-          <div className="w-80 flex-shrink-0">
-            <div className="bg-black/40 backdrop-blur-md border border-green-500/30 rounded-2xl shadow-2xl shadow-green-500/20 p-6 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-transparent to-cyan-500/10 rounded-2xl"></div>
-
-              <div className="relative z-10 flex flex-col items-center">
-                <div className="w-48 h-48 rounded-2xl overflow-hidden border-4 border-green-500/70 shadow-2xl shadow-green-500/50 mb-4">
-                  <img src="/profile-photo.jpg" alt="Foto de perfil" className="w-full h-full object-cover" />
-                </div>
-                <h2 className="text-xl font-bold text-green-400 text-center">Developer Full-Stack</h2>
-                <p className="text-gray-300 text-sm text-center mt-2">
-                  Passionate about clean code and innovative solutions
-                </p>
-              </div>
-            </div>
-
-            {/* Systems & Kernel Info - Below Photo */}
-            <div className="mt-6 space-y-4">
-              <SistemasOperativosCard />
-              <KernelLinuxCard />
-              <TerminalShellCard />
-            </div>
-          </div>
+          {/* Profile Card - Left Side */}
+          <ProfileCard />
 
           {/* Main Skills Cards - Right Side */}
           <div className="flex-1">
-            <div className="bg-black/40 backdrop-blur-md border border-green-500/30 rounded-2xl shadow-2xl shadow-green-500/20 p-4 md:p-5 relative overflow-hidden mb-6">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-transparent to-cyan-500/10 rounded-2xl"></div>
-
+            <div className="bg-gray-900 border border-cyan-700 rounded-xl shadow-lg shadow-cyan-500/30 p-4 md:p-5 overflow-hidden mb-6 transition-all duration-300 hover:shadow-xl">
               <div className="relative z-10">
                 <div className="mb-6">
-                  <h1 className="text-lg md:text-xl font-black text-balance leading-tight text-green-400 drop-shadow-[0_0_20px_rgba(0,255,65,0.8)] animate-pulse">
+                  <h1 className="text-2xl md:text-4xl font-black text-balance leading-tight text-cyan-400 drop-shadow-[0_0_20px_rgba(14,165,233,0.8)] animate-pulse">
                     Siempre con actitud hacker (ética) y un toque creativo.
                   </h1>
                 </div>

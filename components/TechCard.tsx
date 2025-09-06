@@ -10,69 +10,72 @@ interface TechCardProps {
 
 export default function TechCard({ title, color, items, icon: Icon }: TechCardProps) {
   // Mapeo de colores para los diferentes elementos
-  const colorMap: Record<string, { bg: string, border: string, shadow: string, gradient: string, hover: string }> = {
+  const colorMap: Record<string, { bg: string, text: string, border: string, icon: string, glow: string }> = {
     purple: {
-      bg: 'bg-purple-500/30',
-      border: 'border-purple-500/30',
-      shadow: 'shadow-purple-500/20',
-      gradient: 'from-purple-500/10 via-transparent to-purple-500/5',
-      hover: 'hover:bg-purple-500/5 hover:border-purple-500/20',
+      bg: 'bg-purple-950',
+      text: 'text-purple-300',
+      border: 'border-purple-700',
+      icon: 'bg-purple-700',
+      glow: 'shadow-purple-500/30',
     },
     pink: {
-      bg: 'bg-pink-500/30',
-      border: 'border-pink-500/30',
-      shadow: 'shadow-pink-500/20',
-      gradient: 'from-pink-500/10 via-transparent to-pink-500/5',
-      hover: 'hover:bg-pink-500/5 hover:border-pink-500/20',
+      bg: 'bg-pink-950',
+      text: 'text-pink-300',
+      border: 'border-pink-700',
+      icon: 'bg-pink-700',
+      glow: 'shadow-pink-500/30',
     },
     cyan: {
-      bg: 'bg-cyan-500/30',
-      border: 'border-cyan-500/30',
-      shadow: 'shadow-cyan-500/20',
-      gradient: 'from-cyan-500/10 via-transparent to-cyan-500/5',
-      hover: 'hover:bg-cyan-500/5 hover:border-cyan-500/20',
+      bg: 'bg-cyan-950',
+      text: 'text-cyan-300',
+      border: 'border-cyan-700',
+      icon: 'bg-cyan-700',
+      glow: 'shadow-cyan-500/30',
     },
     green: {
-      bg: 'bg-green-500/30',
-      border: 'border-green-500/30',
-      shadow: 'shadow-green-500/20',
-      gradient: 'from-green-500/10 via-transparent to-green-500/5',
-      hover: 'hover:bg-green-500/5 hover:border-green-500/20',
+      bg: 'bg-green-950',
+      text: 'text-green-300',
+      border: 'border-green-700',
+      icon: 'bg-green-700',
+      glow: 'shadow-green-500/30',
     },
     orange: {
-      bg: 'bg-orange-500/30',
-      border: 'border-orange-500/30',
-      shadow: 'shadow-orange-500/20',
-      gradient: 'from-orange-500/10 via-transparent to-orange-500/5',
-      hover: 'hover:bg-orange-500/5 hover:border-orange-500/20',
+      bg: 'bg-orange-950',
+      text: 'text-orange-300',
+      border: 'border-orange-700',
+      icon: 'bg-orange-700',
+      glow: 'shadow-orange-500/30',
     },
     blue: {
-      bg: 'bg-blue-500/30',
-      border: 'border-blue-500/30',
-      shadow: 'shadow-blue-500/20',
-      gradient: 'from-blue-500/10 via-transparent to-blue-500/5',
-      hover: 'hover:bg-blue-500/5 hover:border-blue-500/20',
+      bg: 'bg-blue-950',
+      text: 'text-blue-300',
+      border: 'border-blue-700',
+      icon: 'bg-blue-700',
+      glow: 'shadow-blue-500/30',
     },
   };
 
   const colorStyle = colorMap[color] || colorMap.blue;
 
   return (
-    <div className={`bg-black/40 backdrop-blur-md border ${colorStyle.border} rounded-2xl shadow-2xl ${colorStyle.shadow} p-3 relative overflow-hidden`}>
-      <div className={`absolute inset-0 bg-gradient-to-r ${colorStyle.gradient} rounded-2xl`}></div>
-      <div className="relative z-10">
-        <div className={`group ${colorStyle.hover} p-2 rounded-xl transition-all duration-300 border border-transparent`}>
-          <div className="flex items-center gap-2 mb-2">
-            <div className={`bg-gradient-to-r from-${color}-500 to-${color}-400 text-white px-2 py-1 rounded-lg font-black text-xs uppercase tracking-wider shadow-lg shadow-${color}-500/30 flex items-center gap-1`}>
-              {Icon && <Icon size={10} />}
-              {title}
+    <div className={`${colorStyle.bg} border ${colorStyle.border} rounded-xl shadow-lg ${colorStyle.glow} overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.02]`}>
+      <div className="p-4">
+        <div className="flex items-center gap-3 mb-3">
+          {Icon && (
+            <div className={`${colorStyle.icon} p-2 rounded-lg shadow-md`}>
+              <Icon size={18} className="text-white" />
             </div>
-          </div>
-          <div className="space-y-1 text-gray-100 text-sm">
-            {items.map((item, index) => (
-              <div key={index}>• {item}</div>
-            ))}
-          </div>
+          )}
+          <h3 className={`${colorStyle.text} font-bold text-lg`}>{title}</h3>
+        </div>
+        
+        <div className="space-y-2">
+          {items.map((item, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <div className={`w-1.5 h-1.5 rounded-full ${colorStyle.text}`}></div>
+              <span className="text-gray-300 text-sm">{item}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
