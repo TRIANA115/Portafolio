@@ -1,9 +1,13 @@
 import React from 'react';
 import { SistemasOperativosCard, KernelLinuxCard, TerminalShellCard } from './TechCards';
 
+import { useIsMobile } from '../hooks/use-mobile';
+
 export default function ProfileCard() {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="w-80 flex-shrink-0">
+    <div className={`${isMobile ? 'w-full' : 'w-80'} flex-shrink-0 max-w-sm mx-auto lg:mx-0`}>
       {/* Foto y Datos Personales */}
       <div className="bg-gray-900 border border-cyan-700 rounded-xl shadow-lg shadow-cyan-500/30 overflow-hidden transition-all duration-300 hover:shadow-xl">
         <div className="p-6 flex flex-col items-center">

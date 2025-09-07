@@ -7,6 +7,7 @@ import { useFrame } from "@react-three/fiber"
 import * as THREE from "three"
 import { BackendCard, FrontendCard, DatabaseCard, DevOpsCard } from "../components/TechCards"
 import ProfileCard from "../components/ProfileCard"
+import { useIsMobile } from "../hooks/use-mobile"
 
 function AnimatedSphere({ position }: { position: [number, number, number] }) {
   const meshRef = useRef<any>()
@@ -113,33 +114,45 @@ function TechCubes() {
 }
 
 function HackerBackground3D() {
+  const isMobile = useIsMobile();
+  
   return (
     <Canvas
       camera={{ position: [0, 0, 10], fov: 75 }}
       style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0 }}
+      dpr={isMobile ? [1, 1.5] : [1, 2]} // Reduce pixel ratio on mobile
+      frameloop={isMobile ? "demand" : "always"} // Use 'demand' on mobile to reduce renders
+      performance={{ min: 0.5 }} // Allow performance scaling
     >
       <Environment preset="night" />
       <ambientLight intensity={0.3} />
       <pointLight position={[10, 10, 10]} color="#0ea5e9" intensity={0.7} />
       <pointLight position={[-10, -10, -10]} color="#7c3aed" intensity={0.5} />
 
-      <BinaryParticles />
+      {/* Reduce complexity on mobile */}
+      {!isMobile && <BinaryParticles />}
       <MatrixLines />
-      <TechCubes />
+      {!isMobile && <TechCubes />}
 
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.3} />
+      <OrbitControls 
+        enableZoom={false} 
+        enablePan={false} 
+        autoRotate 
+        autoRotateSpeed={isMobile ? 0.1 : 0.3} 
+        enableDamping={!isMobile}
+      />
     </Canvas>
   )
 }
 
 export default function DeveloperPortfolio() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-950 text-white p-4 sm:p-6 md:p-8 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 z-0"></div>
       <HackerBackground3D />
 
       <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="flex gap-8 items-start">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8 items-center lg:items-start">
           {/* Profile Card - Left Side */}
           <ProfileCard />
 
@@ -170,27 +183,27 @@ export default function DeveloperPortfolio() {
             </div>
             
             {/* Botones de descarga */}
-            <div className="flex justify-end mt-6 gap-4">
+            <div className="flex flex-col sm:flex-row justify-center sm:justify-end mt-6 gap-4">
               <a 
                 href="/CERTIFICADOS HALLTEC Y FACTUS ANDRES TRIANA.pdf" 
                 download
-                className="bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-orange-500/50 transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center gap-2"
+                className="bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-orange-500/50 transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Descargar Certificado Factus
+                <span className="whitespace-nowrap">Descargar Certificado Factus</span>
               </a>
               
               <a 
                 href="/Hoja de Vida Narrador de Esports Gamer Negro y Azul.pdf" 
                 download
-                className="bg-gradient-to-r from-cyan-600 to-cyan-400 hover:from-cyan-500 hover:to-cyan-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center gap-2"
+                className="bg-gradient-to-r from-cyan-600 to-cyan-400 hover:from-cyan-500 hover:to-cyan-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Descargar Hoja de Vida
+                <span className="whitespace-nowrap">Descargar Hoja de Vida</span>
               </a>
             </div>
           </div>
